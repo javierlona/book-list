@@ -14,14 +14,25 @@ class UI {
   add_book_to_list(book) {
     // Create element
     let ROW = document.createElement("tr");
-    // Template literal with backticks
+    // Populate the element with content
     ROW.innerHTML = `
     <td>${book.title}</td>
     <td>${book.author}</td>
     <td>${book.isbn}</td>
-    <td><a href="#" class="delete">X</a></td>
+    <td><a href="#" class="delete"><i class="material-icons">delete_forever</i></a></td>
     `;
+    // Insert book instance into row
     SINGLE_BOOK.append(ROW);
+  }
+
+  delete_book(target) {
+    // (target); the <i> tag
+    // (target.parentElement); the <a> tag
+    // (target.parentElement.parentElement); the <td> tag
+    if(target.parentElement.classList.contains("delete")){
+      // DOM traversal to delete the <tr> tag
+      target.parentElement.parentElement.parentElement.remove();
+    }
   }
 
   show_alert(message, theClassName) {
@@ -37,20 +48,14 @@ class UI {
     setTimeout(function() {
       document.querySelector('.alert').remove();}, 3000);
   }
-  delete_book(target) {
-    if(target.classList.contains("delete")){
-      // DOM traversal to delete the <tr> tag
-      target.parentElement.parentElement.remove();
-    }
-  }
 }
 
 // Event Listener for adding a book
 FORM.addEventListener("submit", function(e){
   // Get form values
   let title = document.querySelector("#title").value,  
-        author = document.querySelector("#author").value, 
-        isbn = document.querySelector("#isbn").value;
+      author = document.querySelector("#author").value, 
+      isbn = document.querySelector("#isbn").value;
   // Instantiate book
   let book = new Book(title, author, isbn);
   // Instantiate UI
