@@ -1,5 +1,5 @@
 const FORM = document.querySelector("#book-form");
-const CONTAINER = document.querySelector(".row");
+const FIRST_ROW = document.querySelector(".row");
 
 // Book constructor
 function Book(title, author, isbn) {
@@ -29,34 +29,27 @@ UI.prototype.add_book_to_list = function(book){
 }
 
 // Show Alert
-// UI.prototype.show_alert = function(message, theClassName) {
-//   // Create div
-//   const DIV = document.createElement("div");
-//   // Add classes
-//   DIV.className = `alert ${theClassName}`;
-//   // Add text
-//   DIV.appendChild(document.createTextNode(message));
-//   console.log(DIV);
-//   // Insert alert
-//   CONTAINER.insertBefore(DIV, FORM);
-
-//   // Timeout after 3 seconds
-//   // setTimeout(function() {
-//   //   document.querySelector('.alert').remove();}, 3000);
-// }
-
+UI.prototype.show_alert = function(message, theClassName) {
   // Create div
   const DIV = document.createElement("div");
   // Add classes
-  DIV.className = "alert error";
+  DIV.classList.add("alert", `${theClassName}`);
   // Add text
-  DIV.append("message in a bottle");
+  DIV.append(message);
   console.log(DIV);
   // Insert alert
-  CONTAINER.insertBefore(DIV, FORM);
+  FIRST_ROW.insertBefore(DIV, FORM);
+  // M.toast({html: 'Keep adding more!', classes: "success"});
+
+  // Timeout after 3 seconds
+  setTimeout(function() {
+    document.querySelector('.alert').remove();}, 3000);
+}
+
+
 
 // Event Listeners
-FORM.addEventListener('submit', function(e){
+FORM.addEventListener("submit", function(e){
   // Get form values
   let title = document.querySelector("#title").value,  
         author = document.querySelector("#author").value, 
@@ -68,12 +61,14 @@ FORM.addEventListener('submit', function(e){
   let ui = new UI();
 
   // Validate
-  if(title === '' || author === '' || isbn === '') {
-    alert('Failed');
-    ui.show_alert('Please fill in all fields', 'error');
+  if(title === "" || author === "" || isbn === "") {
+    ui.show_alert("Please fill in all fields", "error");
   } else {
     // Add book to list
     ui.add_book_to_list(book);
+
+    // Show success
+    ui.show_alert("Book Added!", "success");
 
     // Clear form
     FORM.reset();

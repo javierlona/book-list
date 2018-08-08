@@ -1,11 +1,12 @@
-.success, .error {
+.alert {
   color: white;
   padding: 5px;
   margin: 5px 0 15px 0;
+  text-align: center;
 }
 .success {
-  background: green;
+  background: #81c784;
 }
 .error {
-  background: red;
+  background: #e57373 ;
 }
