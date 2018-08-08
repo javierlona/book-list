@@ -1,5 +1,6 @@
 const FORM = document.querySelector("#book-form");
 const FIRST_ROW = document.querySelector(".row");
+const SINGLE_BOOK = document.querySelector('#book-list');
 
 // Book constructor
 function Book(title, author, isbn) {
@@ -8,8 +9,13 @@ function Book(title, author, isbn) {
   this.isbn = isbn;
 }
 // UI constructor
-function UI() {
+function UI() {}
 
+UI.prototype.delete_book = function(target) {
+  if(target.classList.contains("delete")){
+    // DOM traversal to delete the <tr> tag
+    target.parentElement.parentElement.remove();
+  }
 }
 
 UI.prototype.add_book_to_list = function(book){
@@ -48,7 +54,7 @@ UI.prototype.show_alert = function(message, theClassName) {
 
 
 
-// Event Listeners
+// Event Listener for adding a book
 FORM.addEventListener("submit", function(e){
   // Get form values
   let title = document.querySelector("#title").value,  
@@ -75,4 +81,17 @@ FORM.addEventListener("submit", function(e){
   }
 
   e.preventDefault();
+});
+
+// Event listener for deleting a book
+SINGLE_BOOK.addEventListener("click", function(event){
+  console.log(123);
+
+  let ui = new UI();
+  ui.delete_book(event.target);
+
+  // Show message
+  ui.show_alert("Book Removed", "success");
+
+  event.preventDefault();
 });
