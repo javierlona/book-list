@@ -1,3 +1,5 @@
+FORM = document.querySelector("#book-form");
+
 // Book constructor
 function Book(title, author, isbn) {
   this.title = title;
@@ -25,8 +27,18 @@ UI.prototype.add_book_to_list = function(book){
 
 }
 
+// Show Alert
+UI.prototype.showAlert = function(message, theClassName) {
+  // Create div
+  const DIV = document.createElement("div");
+  // Add classes
+  DIV.className = `alert ${className}`;
+  // Add text
+  DIV.append(message);
+}
+
 // Event Listeners
-document.querySelector("#book-form").addEventListener('submit', function(e){
+FORM.addEventListener('submit', function(e){
   // Get form values
   let title = document.querySelector("#title").value,  
         author = document.querySelector("#author").value, 
@@ -37,12 +49,16 @@ document.querySelector("#book-form").addEventListener('submit', function(e){
   // Instantiate UI
   let ui = new UI();
 
-  // Add book to list
-  ui.add_book_to_list(book);
+  // Validate
+  if(title === '' || author === '' || isbn === '') {
+    alert('Failed');
+  } else {
+    // Add book to list
+    ui.add_book_to_list(book);
 
-  // Clear form
-  FORM = document.querySelector("#book-form");
-  FORM.reset();
+    // Clear form
+    FORM.reset();
+  }
 
   e.preventDefault();
 });
