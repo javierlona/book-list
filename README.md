@@ -5,3 +5,4 @@
 ## Description
 
 ## Technologies
+Materialize Front-End Framework, Vanilla JavaScript
