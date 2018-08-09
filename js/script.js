@@ -1,6 +1,6 @@
 const FORM = document.querySelector("#book-form");
 const FIRST_ROW = document.querySelector(".row");
-const SINGLE_BOOK = document.querySelector('#book-list');
+const SINGLE_BOOK = document.querySelector("#book-list");
 
 // Book constructor
 function Book(title, author, isbn) {
@@ -30,7 +30,7 @@ UI.prototype.delete_book = function(target) {
     // DOM traversal to delete the <tr> tag
     target.parentElement.parentElement.parentElement.remove();
     // Show removal message
-    M.toast({html: 'Book Removed', classes: "error"})
+    M.toast({html: "Book Removed", classes: "error"})
   }
 }
 
@@ -46,14 +46,14 @@ UI.prototype.show_alert = function(message, theClassName) {
   FIRST_ROW.insertBefore(DIV, FORM);
   // Timeout after 3 seconds
   setTimeout(function() {
-    document.querySelector('.alert').remove();}, 3000);
+    document.querySelector(".alert").remove();}, 3000);
 }
 
 // Event Listener for adding a book
 FORM.addEventListener("submit", function(e){
   // Get form values
-  let title = document.querySelector("#title").value,  
-      author = document.querySelector("#author").value, 
+  let title = document.querySelector("#title").value,
+      author = document.querySelector("#author").value,
       isbn = document.querySelector("#isbn").value;
   // Instantiate book
   let book = new Book(title, author, isbn);

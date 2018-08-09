@@ -33,7 +33,7 @@ class UI {
       // DOM traversal to delete the <tr> tag
       target.parentElement.parentElement.parentElement.remove();
     // Show message
-      M.toast({html: 'Book Removed', classes: "error"})
+      M.toast({html: "Book Removed", classes: "error"})
     }
   }
 
@@ -48,15 +48,15 @@ class UI {
     FIRST_ROW.insertBefore(DIV, FORM);
     // Timeout after 3 seconds
     setTimeout(function() {
-      document.querySelector('.alert').remove();}, 3000);
+      document.querySelector(".alert").remove();}, 3000);
   }
 }
 
 // Event Listener for adding a book
 FORM.addEventListener("submit", function(e){
   // Get form values
-  let title = document.querySelector("#title").value,  
-      author = document.querySelector("#author").value, 
+  let title = document.querySelector("#title").value,
+      author = document.querySelector("#author").value,
       isbn = document.querySelector("#isbn").value;
   // Instantiate book
   let book = new Book(title, author, isbn);
