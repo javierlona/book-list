@@ -32,6 +32,8 @@ class UI {
     if(target.parentElement.classList.contains("delete")){
       // DOM traversal to delete the <tr> tag
       target.parentElement.parentElement.parentElement.remove();
+    // Show message
+      M.toast({html: 'Book Removed', classes: "error"})
     }
   }
 
@@ -60,7 +62,7 @@ FORM.addEventListener("submit", function(e){
   let book = new Book(title, author, isbn);
   // Instantiate UI
   let ui = new UI();
-  // Validate
+  // Validate fields are filled
   if(title === "" || author === "" || isbn === "") {
     ui.show_alert("Please fill in all fields", "error");
   } else {
@@ -76,9 +78,9 @@ FORM.addEventListener("submit", function(e){
 
 // Event listener for deleting a book
 SINGLE_BOOK.addEventListener("click", function(event){
+  // Create instance of UI to access its methods
   let ui = new UI();
+  // Delete the selected book
   ui.delete_book(event.target);
-  // Show message
-  ui.show_alert("Book Removed", "success");
   event.preventDefault();
 });
