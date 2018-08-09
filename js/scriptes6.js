@@ -1,6 +1,6 @@
 const FORM = document.querySelector("#book-form");
 const FIRST_ROW = document.querySelector(".row");
-const SINGLE_BOOK = document.querySelector('#book-list');
+const SINGLE_BOOK = document.querySelector("#book-list");
 
 class Book {
   constructor(title, author, isbn) {
