@@ -52,6 +52,31 @@ class UI {
   }
 }
 
+class Storage {
+  static get_books(){
+    let books;
+    if(sessionStorage.getItem('books') === null) {
+      books = [];
+    } else {
+      // Convert books from JSON to JS object
+      books = JSON.parse(sessionStorage.getItem('books'));
+    }
+    return books;
+  }
+  static display_books(){
+
+  }
+  static remove_book(){
+
+  }
+  static add_book(book){
+    // Call function in the same class
+    const books = Storage.get_books();
+    books.push(book);
+    sessionStorage.setItem('books', JSON.stringify(books));
+  }
+}
+
 // Event Listener for adding a book
 FORM.addEventListener("submit", function(e){
   // Get form values
@@ -68,6 +93,8 @@ FORM.addEventListener("submit", function(e){
   } else {
     // Add book to list
     ui.add_book_to_list(book);
+    // Add book to Session Storage
+    Storage.add_book(book);
     // Show success
     ui.show_alert("Book Added!", "success");
     // Clear form
