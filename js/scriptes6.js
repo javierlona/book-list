@@ -63,19 +63,43 @@ class Storage {
     }
     return books;
   }
+
   static display_books(){
-
-  }
-  static remove_book(){
-
-  }
-  static add_book(book){
-    // Call function in the same class
     const books = Storage.get_books();
+    books.forEach(function(book){
+      // Instantiate a new UI to access it methods
+      const ui = new UI;
+      // Add book to UI
+      ui.add_book_to_list(book);
+    });
+  }
+
+  static remove_book(title){
+    // Get all the books stored in session storage
+    const books = Storage.get_books();
+    // Loop through each book until it matches the book title passed in
+    books.forEach(function(book, index){
+      if(book.title === title){
+        // Remove the selected book from session storage
+        books.splice(index, 1);
+      }
+    });
+    // Add the remaining books to session storage
+    sessionStorage.setItem('books', JSON.stringify(books));
+  }
+
+  static add_book(book){
+    // Call function in the same class above
+    const books = Storage.get_books();
+    // Add to session storage
     books.push(book);
+    // Convert a JavaScript object into a string
+    // When sending data to a web server, the data has to be a string.
     sessionStorage.setItem('books', JSON.stringify(books));
   }
 }
+
+document.addEventListener('DOMContentLoaded', Storage.display_books, false);
 
 // Event Listener for adding a book
 FORM.addEventListener("submit", function(e){
@@ -109,5 +133,8 @@ SINGLE_BOOK.addEventListener("click", function(event){
   let ui = new UI();
   // Delete the selected book
   ui.delete_book(event.target);
+  // Remove from Session Storage
+  // Access the book title
+  Storage.remove_book(event.target.parentElement.parentElement.parentElement.firstElementChild.textContent);
   event.preventDefault();
 });
